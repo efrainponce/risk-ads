@@ -32,3 +32,10 @@ Bitácora de sesiones. Entrada nueva con `/end`.
 - Bleeders re-priorizada: ×2.00 (80→160) por ROAS 13.42 + Lost IS(Bud) 90%, capped a 164/día (cap Zombies 5K/mes)
 - Cuenta post-script: 3,821 MXN/día → ~116K/mes · ROAS cuenta 3.91 (apenas bajo floor 4.0)
 - Pendiente: reports/2026-04-20/baseline.md con hipótesis medibles (1.2), Script B Brand (1.5-1.7)
+
+**~sesión 5**
+- Fase 1 cerrada: `reports/2026-04-20/baseline.md` con hipótesis H1-H6 medibles al 2026-05-04; Script B v2 live; Script C reporting (read-only, 6 ventanas + YoY) generado sin ejecutar aún
+- Limitaciones Scripts descubiertas: `AdsApp.newCampaignBuilder` no existe (campaña Brand creada manual como copy-paste de Search); `setStrategy('TARGET_ROAS')` lanza `InputError: Unsupported strategy type` → tROAS seteado manual en UI (Brand 10.0, Search 3.50)
+- Ad group `Risk` en Brand: 4 BROAD pausadas (Action 5b), 8 EXACT+PHRASE añadidas, brand terms como negatives en Search+Ubicaciones; dedup de kw por texto+match_type
+- Script B corrió 2× accidentalmente live → Search bajó 1105→990→875; Action 9 rewrite con target absoluto 990 (idempotente); user restauró Search a 990 manual
+- Estado cuenta final: 3,821/día · ~116K/mes · Brand ACTIVADA (tROAS 10.0) · Search tROAS 3.50 · RSA Brand pendiente editar copy (1.6 pendiente)

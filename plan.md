@@ -13,7 +13,7 @@ Convención: `[ ]` pendiente · `[x]` completado · `[~]` en progreso · tareas 
 **Objetivo:** ejecutar el plan de reallocación + limpieza del diagnóstico 2026-04-20. Ceiling cuenta: **120K MXN/mes**.
 
 - [x] **1.1** Snapshot baseline pre-cambios (ya en `data/manual_exports/`)
-- [ ] **1.2** Guardar análisis en `reports/2026-04-20/baseline.md` con hipótesis medibles
+- [x] **1.2** Guardar análisis en `reports/2026-04-20/baseline.md` con hipótesis medibles
 - [x] **1.3** Generar **Script A — Limpieza + Reallocation** (`scripts/ads_scripts/01_cleanup_reallocation.js`):
   - Pause 6 keywords drain en Search (`botas 5.11`, `tienda 511`, `camisa 5.11`, `ropa 5.11`, `5.11 mexico`, `511`)
   - Bid −30% en 4 keywords sub-target (`pantalon 5.11`, `5.11 clothing`, `risk 5.11`, `tienda 5.11`)
@@ -29,13 +29,19 @@ Convención: `[ ]` pendiente · `[x]` completado · `[~]` en progreso · tareas 
     - Ubicaciones ×0.70 (80→56) — rev=0 por tracking store-visits
   - Flag `DRY_RUN = true` por default
 - [x] **1.4** Usuario ejecuta Script A en DRY_RUN → revisa log → ejecuta live
-- [ ] **1.5** Generar **Script B — Estructura Search - Brand** (`scripts/ads_scripts/02_brand_campaign.js`):
-  - Crear campaña `Search - Brand` (budget 115 MXN/día = ~3.5K/mes, tROAS 10.0, geo México)
-  - Ad group `Risk Brand` con 4 keywords exact + phrase
-  - RSA con placeholders (usuario llena copy en UI)
-  - Agregar brand terms como negative en campañas `Search` y `Ubicaciones`
-- [ ] **1.6** Usuario ejecuta Script B → escribe copy de RSAs manualmente en UI
-- [ ] **1.7** Ajustar budget de campaña `Search` de 27.5K → 24K (los 3.5K restados fueron al Brand)
+- [x] **1.5** Generar **Script B v2 — Ajustar campaña Brand** (`scripts/ads_scripts/02_brand_campaign.js`):
+  - Campaña `Brand` creada manual (Scripts no puede crear Search campaigns vía `AdsApp.newCampaignBuilder`); ad group `Risk` existente reutilizado
+  - Ajuste budget a 115/día, tROAS 10.0 vía UI (setStrategy falla: `Unsupported strategy type TARGET_ROAS`)
+  - 4 kw BROAD pausadas (Action 5b), 8 kw EXACT+PHRASE añadidas (`[risk tactical]`, `[risk top tactical]`, `[risk mexico]`, `[risk tactical mexico]` + phrase)
+  - Brand terms como negative en `Search` y `Ubicaciones`
+  - Idempotency en Action 9: target absoluto Search=990 (no `−115`) tras que script corriera 2× accidentalmente
+- [ ] **1.6** Usuario edita copy de RSA Brand manualmente en UI (RSA actual es copy-paste de Search, pendiente)
+- [x] **1.7** Ajustar budget de campaña `Search` de 1105→990/día — aplicado manual (Script B redujo a 875 por doble run, usuario ajustó a 990)
+- [x] **1.8** Generar **Script C — Reporting trends + YoY** (`scripts/ads_scripts/03_reporting.js`):
+  - Read-only, output a Logger.log (usuario pega log en `reports/{date}/trends.md`)
+  - Ventanas: 7d / 14d / 30d / 90d / 180d + YoY 90d vs 90d año anterior
+  - Account rollup, campaign-level flags (opportunity/drain/degrading/healthy), top/bottom kw, search terms miner, shopping heroes/drains, PMAX asset performance_label
+  - Futuro post-Basic Access: añadir `MailApp.sendEmail` con CSV adjunto
 
 ---
 
