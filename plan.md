@@ -12,17 +12,23 @@ Convención: `[ ]` pendiente · `[x]` completado · `[~]` en progreso · tareas 
 
 **Objetivo:** ejecutar el plan de reallocación + limpieza del diagnóstico 2026-04-20. Ceiling cuenta: **120K MXN/mes**.
 
-- [ ] **1.1** Snapshot baseline pre-cambios (ya en `data/manual_exports/`)
+- [x] **1.1** Snapshot baseline pre-cambios (ya en `data/manual_exports/`)
 - [ ] **1.2** Guardar análisis en `reports/2026-04-20/baseline.md` con hipótesis medibles
-- [ ] **1.3** Generar **Script A — Limpieza + Reallocation** (`scripts/ads_scripts/01_cleanup_reallocation.js`):
+- [x] **1.3** Generar **Script A — Limpieza + Reallocation** (`scripts/ads_scripts/01_cleanup_reallocation.js`):
   - Pause 6 keywords drain en Search (`botas 5.11`, `tienda 511`, `camisa 5.11`, `ropa 5.11`, `5.11 mexico`, `511`)
   - Bid −30% en 4 keywords sub-target (`pantalon 5.11`, `5.11 clothing`, `risk 5.11`, `tienda 5.11`)
   - Bid +30% en 2 keywords brand (`risk top tactical`, `risk tactical`)
-  - Pause 3 keywords en Ubicaciones (`5.11 cdmx`, `5.11 merida`, `tienda 5.11 veracruz`)
-  - Pause campaña `Miguel Caballero Demand Gen`
-  - Ajustar daily budgets: Winners +30%, Improvers +30%, Champions +15%, Search −30%, Bleeders −30%, Ubicaciones −54%
+  - Pause 3 keywords en Ubicaciones (`tienda 5.11 cdmx`, `5.11 merida`, `tienda 5.11 veracruz`)
+  - Pause campaña `Miguel Caballero Demand Gen` (manual en UI — Scripts no puede mutar Demand Gen)
+  - Budgets aplicados (ajustados post-diagnóstico live vs plan original):
+    - Winners ×1.30 (400→520) ✓
+    - Improvers HOLD (Lost IS(Bud) 0.4% — no puede gastar más)
+    - Champions HOLD (ROAS 3.12 < tROAS 4.50 — subir no resuelve)
+    - Search ×0.85 (1300→1105) — menos agresivo, trae 95K rev/mes
+    - Bleeders ×2.00 (80→160, cap 164) — ROAS 13.42 + Lost IS(Bud) 90%
+    - Ubicaciones ×0.70 (80→56) — rev=0 por tracking store-visits
   - Flag `DRY_RUN = true` por default
-- [ ] **1.4** Usuario ejecuta Script A en DRY_RUN → revisa log → ejecuta live
+- [x] **1.4** Usuario ejecuta Script A en DRY_RUN → revisa log → ejecuta live
 - [ ] **1.5** Generar **Script B — Estructura Search - Brand** (`scripts/ads_scripts/02_brand_campaign.js`):
   - Crear campaña `Search - Brand` (budget 115 MXN/día = ~3.5K/mes, tROAS 10.0, geo México)
   - Ad group `Risk Brand` con 4 keywords exact + phrase
