@@ -1,0 +1,17 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+data/*.duckdb
+data/*.duckdb.wal
+data/raw/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+*.secrets
+secrets/
+data/manual_exports/
+.vscode/
