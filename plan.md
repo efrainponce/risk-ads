@@ -59,17 +59,16 @@ Convención: `[ ]` pendiente · `[x]` completado · `[~]` en progreso · tareas 
 
 Acciones sin tocar budgets/bids ni estructura de campañas. Feed Shopify + assets cuenta = fuente separada, no rompe H1-H6.
 
-- [ ] **3.1** **Script F — Product audit read-only** (`scripts/ads_scripts/05_product_audit.js`):
-  - Lee performance 90D por `item_id` en Shopping + PMax
-  - Clasifica cada producto en bucket recomendado (Champions/Winners/Improvers/Zombies)
-  - Compara vs bucket actual (campaña donde aparece)
-  - Output CSV-style log: `item_id | current_bucket | recommended | ROAS 90D | cost 90D | reason`
-  - Flag "misplaced": productos en Champions con ROAS<4, Zombies con ROAS>5
-  - **Hipótesis a validar:** PMAX Champions ROAS 3.12 se explica por zombies infiltrados
-- [ ] **3.2** Revisar log Script F → identificar top-20 productos a demote/graduar
-- [ ] **3.3** **Asset cleanup manual UI:** aplicar los 35 sitelinks + 13 callouts existentes a campañas Search/Brand/Ubicaciones (estaban a nivel cuenta pero no asociados). CTR lift esperado 10-15%
-- [ ] **3.4** Verificar en UI si realmente hay 0 RSAs en ad groups Search (puede ser bug del detector del script). Si es real → crítico, si es bug → documentar
-- [ ] **3.5** Crear negative keyword list compartida `brand-negatives-shared` (5.11, LA Police Gear, propper, etc) y aplicar a Search + Ubicaciones
+- [x] **3.1** **Product audit via CSV export 180D** (Script F `05_product_audit.js` falló por GAQL DURING y singular/plural bug; fallback Python en CSV manual):
+  - `src/analyze/product_bucket_classifier.py` clasifica 6,484 variants → reports/2026-04-20/product_classification.md
+  - `src/analyze/generate_matrixify_feed.py` colapsa a 669 productos únicos → `matrixify_custom_label_0.csv`
+  - Distribución: 19 champion / 59 winner / 23 improver / 568 zombie (Zombies = 58% del gasto con ROAS 1.60)
+- [x] **3.2** Top-30 drains + top-17 champions + top-20 winners/improvers identificados en `reports/2026-04-20/product_classification.md`
+- [~] **3.3** **Matrixify import lanzado** (669 products, 22min estimate) → metafield `mm-google-shopping.custom_label_0` → sync Merchant 1-24h vía Google & YouTube app. Verificar post-sync.
+- [ ] **3.4** **Listing filters en PMax/Shopping** (CRÍTICO post-sync): sin esto labels no mueven productos entre buckets. Configurar UI filters `custom_label_0 = champion/winner/improver/zombie` en las 4 PMAX + Shopping Bleeders
+- [ ] **3.5** **Asset cleanup manual UI:** aplicar los 35 sitelinks + 13 callouts existentes a campañas Search/Brand/Ubicaciones (CTR lift esperado 10-15%)
+- [ ] **3.6** Verificar en UI si realmente hay 0 RSAs en ad groups Search (puede ser bug del detector del script). Si es real → crítico, si es bug → documentar
+- [ ] **3.7** Crear negative keyword list compartida `brand-negatives-shared` (5.11, LA Police Gear, propper, etc) y aplicar a Search + Ubicaciones
 
 ---
 

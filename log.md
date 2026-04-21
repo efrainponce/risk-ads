@@ -39,3 +39,10 @@ Bitácora de sesiones. Entrada nueva con `/end`.
 - Ad group `Risk` en Brand: 4 BROAD pausadas (Action 5b), 8 EXACT+PHRASE añadidas, brand terms como negatives en Search+Ubicaciones; dedup de kw por texto+match_type
 - Script B corrió 2× accidentalmente live → Search bajó 1105→990→875; Action 9 rewrite con target absoluto 990 (idempotente); user restauró Search a 990 manual
 - Estado cuenta final: 3,821/día · ~116K/mes · Brand ACTIVADA (tROAS 10.0) · Search tROAS 3.50 · RSA Brand pendiente editar copy (1.6 pendiente)
+
+**~sesión 6**
+- Script D audit live reveló: PMAX Champions ROAS 3.12 L30D (drena 44K/mes), Search 100% BROAD, Ubicaciones ROAS 0, 35 sitelinks+13 callouts NO aplicados a campañas, 0 audiences, 0 negative lists compartidas. Bugs fixed: `camp.getType()` → `getAdvertisingChannelType()`, `AdsApp.campaigns()` solo Search → consolidar 3 selectores
+- Script F (`05_product_audit.js`) escrito pero GAQL `DURING LAST_90_DAYS` no soportado + singular/plural bug; user pivoteó a CSV manual 180D (Oct'25–Abr'26)
+- Python `product_bucket_classifier.py` + `generate_matrixify_feed.py`: 6,484 variants → 669 productos únicos (19 champion / 59 winner / 23 improver / 568 zombie); Zombies = 58% del gasto con ROAS 1.60
+- Matrixify import lanzado (22min estimate) con `matrixify_custom_label_0.csv` → metafield `mm-google-shopping.custom_label_0` → sync Merchant vía Google & YouTube app 1-24h
+- Plan.md reescrito: backlog speculativo movido a final, Fase 3 quick wins añadida. Pendiente post-sync: listing filters en PMax (sin eso labels no mueven productos entre buckets)
