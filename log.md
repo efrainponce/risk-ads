@@ -46,3 +46,10 @@ Bitácora de sesiones. Entrada nueva con `/end`.
 - Python `product_bucket_classifier.py` + `generate_matrixify_feed.py`: 6,484 variants → 669 productos únicos (19 champion / 59 winner / 23 improver / 568 zombie); Zombies = 58% del gasto con ROAS 1.60
 - Matrixify import lanzado (22min estimate) con `matrixify_custom_label_0.csv` → metafield `mm-google-shopping.custom_label_0` → sync Merchant vía Google & YouTube app 1-24h
 - Plan.md reescrito: backlog speculativo movido a final, Fase 3 quick wins añadida. Pendiente post-sync: listing filters en PMax (sin eso labels no mueven productos entre buckets)
+
+**~sesión 7**
+- Matrixify import completado: 669 products updated, 0 errors, 14min 45sec duración real
+- Metafield definition creada en Shopify Settings → Custom data → Products (namespace `mm-google-shopping`, key `custom_label_0`, type Single line text, Admin API filter enabled)
+- Verificación manual OK: producto winner (Pantalón Taclite Pro id 6945928775) aparece en Unstructured metafields con `custom_label_0=winner` ✅
+- Custom App vía admin UI bloqueada: Shopify deprecó legacy custom apps 2026-01-01; Dev Dashboard OAuth overkill para one-off read; descartado verificación API, usar UI manual
+- Merchant Center sync al cerrar: 7.6% (493/6484 variants) subiendo linealmente; cuadra 669 products × ~10 variants avg = 6484; esperamos ~100% en 24h. Pendiente mañana: listing filters en PMAX Champions/Winners/Improvers/Tiendas + Shopping Bleeders

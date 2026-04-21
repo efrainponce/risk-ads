@@ -64,7 +64,7 @@ Acciones sin tocar budgets/bids ni estructura de campañas. Feed Shopify + asset
   - `src/analyze/generate_matrixify_feed.py` colapsa a 669 productos únicos → `matrixify_custom_label_0.csv`
   - Distribución: 19 champion / 59 winner / 23 improver / 568 zombie (Zombies = 58% del gasto con ROAS 1.60)
 - [x] **3.2** Top-30 drains + top-17 champions + top-20 winners/improvers identificados en `reports/2026-04-20/product_classification.md`
-- [~] **3.3** **Matrixify import lanzado** (669 products, 22min estimate) → metafield `mm-google-shopping.custom_label_0` → sync Merchant 1-24h vía Google & YouTube app. Verificar post-sync.
+- [~] **3.3** **Matrixify import completado** (669 products updated, 0 errors, 14min 45sec) → metafield definition creada en Shopify Settings → Custom data (`mm-google-shopping.custom_label_0`, Single line text) → verificación manual OK en 1 producto winner. Sync Merchant 7.6% → ~100% en 24h. Pendiente confirmar sync completo mañana.
 - [ ] **3.4** **Listing filters en PMax/Shopping** (CRÍTICO post-sync): sin esto labels no mueven productos entre buckets. Configurar UI filters `custom_label_0 = champion/winner/improver/zombie` en las 4 PMAX + Shopping Bleeders
 - [ ] **3.5** **Asset cleanup manual UI:** aplicar los 35 sitelinks + 13 callouts existentes a campañas Search/Brand/Ubicaciones (CTR lift esperado 10-15%)
 - [ ] **3.6** Verificar en UI si realmente hay 0 RSAs en ad groups Search (puede ser bug del detector del script). Si es real → crítico, si es bug → documentar
