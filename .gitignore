@@ -13,5 +13,4 @@ dist/
 build/
 *.secrets
 secrets/
-data/manual_exports/
 .vscode/
