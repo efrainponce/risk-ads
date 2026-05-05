@@ -53,3 +53,14 @@ Bitácora de sesiones. Entrada nueva con `/end`.
 - Verificación manual OK: producto winner (Pantalón Taclite Pro id 6945928775) aparece en Unstructured metafields con `custom_label_0=winner` ✅
 - Custom App vía admin UI bloqueada: Shopify deprecó legacy custom apps 2026-01-01; Dev Dashboard OAuth overkill para one-off read; descartado verificación API, usar UI manual
 - Merchant Center sync al cerrar: 7.6% (493/6484 variants) subiendo linealmente; cuadra 669 products × ~10 variants avg = 6484; esperamos ~100% en 24h. Pendiente mañana: listing filters en PMAX Champions/Winners/Improvers/Tiendas + Shopping Bleeders
+
+---
+
+## 2026-05-04
+
+**~sesión 1**
+- API Google Ads aprobada + refresh_token regenerado; smoke_test fix int→str; nuevos scripts `yoy_q1_report.py`, `current_state_report.py`, `bidding_audit.py` via API directa
+- Postmortem H1-H6 escrito (`reports/2026-05-04/postmortem.md`): 5/6 falla L14D (Winners 0.47, Brand 0.00, cuenta 2.32) — user flag cadencia debe ser mensual, no quincenal; memoria `feedback_iteration_cadence.md` + `feedback_yoy_comparison.md` añadidas
+- tROAS corregidos UI: Brand 1000→450 (unlock crítico, 0 conv era por strangle), Winners 360→300, Champions/Improvers 450→400; listing filters PMAX aplicados por user
+- 107 productos sin label en Merchant breakdown ($79K rev / $22.9K cost) — variant-level Matrixify 64/107 OK + 43 Failed por variant IDs stale; fallback product-level (29 productos) importado OK
+- Plan ambicioso Mayo propuesto (~119K/mes: Improvers $80→$350, Winners $520→$950, Brand $115→$250, Champions $1900→$1500, Search $999→$700, Ubicaciones $56→$30) — **pendiente aplicar budgets en UI mañana post-sync Merchant**

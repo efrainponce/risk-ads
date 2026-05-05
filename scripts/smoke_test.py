@@ -74,7 +74,7 @@ def test_customer_info(client):
             table.add_column("Campo", style="cyan")
             table.add_column("Valor")
 
-            table.add_row("ID", customer.id)
+            table.add_row("ID", str(customer.id))
             table.add_row("Nombre", customer.descriptive_name)
             table.add_row("Moneda", customer.currency_code)
             table.add_row("Timezone", customer.time_zone)
@@ -125,7 +125,7 @@ def test_campaigns(client):
 
     for campaign in campaigns:
         table.add_row(
-            campaign.id,
+            str(campaign.id),
             campaign.name,
             campaign.status.name,
             campaign.advertising_channel_type.name,

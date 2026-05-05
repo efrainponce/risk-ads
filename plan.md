@@ -12,7 +12,7 @@ Convención: `[ ]` pendiente · `[x]` completado · `[~]` en progreso · tareas 
 - **ROAS floor 4.0** — regla dura, no KPI suave (excepto Zombies campaign por diseño)
 - **Ceiling cuenta: 120K MXN/mes**
 - **Estructura target:** Brand + Search 4 buckets (Brand/Generic Core/Generic Explore/Competitor) + Shopping/PMax 4 buckets (Champions/Winners/Improvers/Zombies)
-- **Cadencia quincenal** (14 días entre iteraciones) — learning phase sagrada
+- **Cadencia mensual** (30 días entre iteraciones) — learning phase sagrada; cambios drásticos requieren ≥30d data
 - **Nada que mute campañas durante ventana de observación** (feed Shopify sí, campañas Ads no)
 
 ---
@@ -45,13 +45,9 @@ Convención: `[ ]` pendiente · `[x]` completado · `[~]` en progreso · tareas 
 **SAGRADA.** Hipótesis H1-H6 miden efecto de Script A + Brand. No tocar budgets/bids/estructura de campañas.
 
 - [ ] **2.1** Monitor diario ROAS cuenta — circuit breaker 4.0
-- [ ] **2.2** Validar hipótesis baseline:
-  - Search ROAS sube ≥ 3.8 post-limpieza (si no → problema estructural)
-  - PMAX Winners mantiene ROAS ≥ 5
-  - Account ROAS vuelve ≥ 4.0
-  - Brand genera ROAS ≥ 8 desde día 3
-- [ ] **2.3** Snapshot día 14 — CSV exports a `data/manual_exports/iter_2/`
-- [ ] **2.4** Postmortem en `reports/2026-05-04/postmortem.md`
+- [x] **2.2** Validar hipótesis baseline (5/6 falla L14D — Winners 0.47, Brand 0.00, cuenta 2.32; solo Champions H6 pasa)
+- [x] **2.3** Snapshot día 14 — vía API directa (`current_state_report.py`)
+- [x] **2.4** Postmortem en `reports/2026-05-04/postmortem.md`
 
 ---
 
@@ -64,8 +60,8 @@ Acciones sin tocar budgets/bids ni estructura de campañas. Feed Shopify + asset
   - `src/analyze/generate_matrixify_feed.py` colapsa a 669 productos únicos → `matrixify_custom_label_0.csv`
   - Distribución: 19 champion / 59 winner / 23 improver / 568 zombie (Zombies = 58% del gasto con ROAS 1.60)
 - [x] **3.2** Top-30 drains + top-17 champions + top-20 winners/improvers identificados en `reports/2026-04-20/product_classification.md`
-- [~] **3.3** **Matrixify import completado** (669 products updated, 0 errors, 14min 45sec) → metafield definition creada en Shopify Settings → Custom data (`mm-google-shopping.custom_label_0`, Single line text) → verificación manual OK en 1 producto winner. Sync Merchant 7.6% → ~100% en 24h. Pendiente confirmar sync completo mañana.
-- [ ] **3.4** **Listing filters en PMax/Shopping** (CRÍTICO post-sync): sin esto labels no mueven productos entre buckets. Configurar UI filters `custom_label_0 = champion/winner/improver/zombie` en las 4 PMAX + Shopping Bleeders
+- [x] **3.3** **Matrixify import completado** (669 products) + sync Merchant 98% confirmado 2026-05-04. Patch follow-up: 107 variantes "no custom label" detectadas → variant-level retry 64/107 OK + product-level retry 29 productos OK (variant IDs stale en Merchant)
+- [x] **3.4** **Listing filters en PMax/Shopping** aplicados por user 2026-05-04 (Champions/Winners/Improvers/Bleeders con `custom_label_0` filter)
 - [ ] **3.5** **Asset cleanup manual UI:** aplicar los 35 sitelinks + 13 callouts existentes a campañas Search/Brand/Ubicaciones (CTR lift esperado 10-15%)
 - [ ] **3.6** Verificar en UI si realmente hay 0 RSAs en ad groups Search (puede ser bug del detector del script). Si es real → crítico, si es bug → documentar
 - [ ] **3.7** Crear negative keyword list compartida `brand-negatives-shared` (5.11, LA Police Gear, propper, etc) y aplicar a Search + Ubicaciones
@@ -100,9 +96,9 @@ Solo arrancar cuando H1-H6 evaluadas. Orden depende de qué falló.
 ## 🟢 Fase 5 · Infra (paralelo, bajo riesgo)
 
 - [x] **5.1** Google Ads developer token obtenido (Basic Access en review)
-- [ ] **5.2** Monitor email aprobación Basic Access (1-3 días hábiles)
-- [ ] **5.3** Validar con `scripts/smoke_test.py` post-aprobación
-- [ ] **5.4** Verificar Merchant Center ↔ Google Ads link (post-approval)
+- [x] **5.2** Basic Access aprobado 2026-05-04
+- [x] **5.3** `scripts/smoke_test.py` valida auth + lista campañas vía API real (fix int→str render)
+- [x] **5.4** Merchant Center ↔ Google Ads link confirmado funcional (data Shopify visible en PMAX)
 - [ ] **5.5** Standard Access eventual
 
 ---
